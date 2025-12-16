@@ -63,6 +63,7 @@ const Hero = () => {
           }}
         />
       ))}
+      <p className="bg-white px-4 py-2 rounded-md text-blue-500 font-semibold">Aucun prérequis • À ton rythme • 100% pratique</p>
     </section>
   );
 };

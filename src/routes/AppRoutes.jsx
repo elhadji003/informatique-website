@@ -21,17 +21,12 @@ const AppRoutes = () => (
 
       // === Routes protégées ===
       return (
-        <Route
-          key={i}
-          element={
-            <ProtectedRoutes allowedRoles={Array.isArray(role) ? role : [role]}>
-              <Layout />
-            </ProtectedRoutes>
-          }
-        >
-          {routes.map(({ path, element }, j) => (
-            <Route key={`${i}-${j}`} path={path} element={element} />
-          ))}
+        <Route element={<ProtectedRoutes allowedRoles={[role]} />}>
+          <Route element={<Layout />}>
+            {routes.map(({ path, element }, j) => (
+              <Route key={`${i}-${j}`} path={path} element={element} />
+            ))}
+          </Route>
         </Route>
       );
     })}

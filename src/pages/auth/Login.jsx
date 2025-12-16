@@ -3,18 +3,42 @@ import { useForm } from "react-hook-form";
 import vector from "../../assets/img/vector.png";
 import EcritureAuto from "../../components/EcritureAuto";
 import { FaSpinner } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../backend/features/auth/authApi";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../../backend/features/auth/authSlice";
 
 export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
+    formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Email:", data.email);
-    console.log("Password:", data.password);
+  const navigate = useNavigate();
+
+  const [loginUser, { isLoading }] = useLoginMutation();
+  const dispatch = useDispatch();
+
+  const onSubmit = async (credentials) => {
+    try {
+      const res = await loginUser(credentials).unwrap();
+      dispatch(setCredentials(res));
+
+      const role = res?.user?.role;
+
+      console.log("ROLE 👉", res.user.role);
+
+      if (role === "admin") navigate("/dashboardAdmin");
+      else if (role === "user") navigate("/dashboardUser");
+      else navigate("/unauthorized");
+
+      toast.success("Connexion réussie !");
+    } catch (error) {
+      console.error(error);
+      toast.error("Email ou mot de passe incorrect");
+    }
   };
 
   return (
@@ -59,19 +83,19 @@ export default function Login() {
             {/* Bouton Login */}
             <button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isLoading}
               className={`w-full bg-blue-600 text-white py-3 rounded-full font-medium transition
                 ${
-                  isSubmitting
+                  isLoading
                     ? "opacity-70 cursor-not-allowed"
                     : "hover:bg-blue-700"
                 }
               `}
             >
-              {isSubmitting ? (
+              {isLoading ? (
                 <FaSpinner className="animate-spin mx-auto" />
               ) : (
-                "Login"
+                "Se connecter"
               )}
             </button>
           </form>

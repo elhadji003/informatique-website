@@ -6,8 +6,10 @@ import { useSelector } from "react-redux";
 const Layout = () => {
   const { user } = useSelector((state) => state.auth);
 
+  console.log("User role :", user);
+
   if (user?.role === "admin") return <LayoutAdmin />;
-  if (user?.role === "users") return <LayoutUser />;
+  if (user?.role === "user") return <LayoutUser />;
 
   return null;
 };

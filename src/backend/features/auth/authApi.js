@@ -6,6 +6,13 @@ export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
+    register: builder.mutation({
+      query: (data) => ({
+        url: `${AUTH_USERS_API}register/`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     login: builder.mutation({
       query: (credentials) => ({
         url: `${AUTH_USERS_API}login/`,
@@ -28,7 +35,7 @@ export const authApi = createApi({
     }),
     changePassword: builder.mutation({
       query: (passwords) => ({
-        url: `${AUTH_USERS_API}change-password/`,
+        url: `${AUTH_USERS_API}change-password/user/`,
         method: "PUT",
         body: passwords,
       }),
@@ -52,12 +59,11 @@ export const authApi = createApi({
 });
 
 export const {
+  useRegisterMutation,
   useLoginMutation,
   useRefreshTokenMutation,
   useLogoutMutation,
   useChangePasswordMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
-  useGetUsersQuery,
-  useGetTestQuery
 } = authApi;
