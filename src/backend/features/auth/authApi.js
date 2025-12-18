@@ -42,14 +42,14 @@ export const authApi = createApi({
     }),
     forgotPassword: builder.mutation({
       query: (data) => ({
-        url: `${AUTH_USERS_API}password-reset/`,
+        url: `${AUTH_USERS_API}password/request-reset/`,
         method: "POST",
         body: data,
       }),
     }),
     resetPassword: builder.mutation({
       query: ({ uid, token, new_password, re_new_password }) => ({
-        url: `${AUTH_USERS_API}password-reset-confirm/${uid}/${token}/`,
+        url: `${AUTH_USERS_API}password/reset-confirm/${uid}/${token}/`,
         method: "POST",
         body: { new_password, re_new_password },
       }),

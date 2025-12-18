@@ -1,10 +1,17 @@
 import React from "react";
 import ModalUpdatePwd from "../../../components/user/ModalUpdatePwd";
 import ModalDeleteAccount from "../../../components/user/ModalDeleteAccount";
+import { toast } from "react-toastify";
 
 export default function Parametres({ className }) {
   const [isPwdModalOpen, setIsPwdModalOpen] = React.useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = React.useState(false);
+
+  const handleDeconnectAllDevices = () => {
+    // Logique pour déconnecter tous les appareils
+    toast.warning("Cette fonctionnalité n'est pas encore implémentée.");
+    console.log("Déconnexion de tous les appareils");
+  };
 
   return (
     <div
@@ -26,7 +33,10 @@ export default function Parametres({ className }) {
             >
               Changer le mot de passe
             </button>
-            <button className="bg-gray-500 px-4 py-2 rounded-md text-white hover:bg-gray-600 mt-2">
+            <button
+              onClick={handleDeconnectAllDevices}
+              className="bg-gray-500 px-4 py-2 rounded-md text-white hover:bg-gray-600 mt-2"
+            >
               Déconnecter tous les appareils
             </button>
           </section>

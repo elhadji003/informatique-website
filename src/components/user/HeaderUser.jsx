@@ -29,7 +29,7 @@ export default function HeaderUser() {
               <span className="text-sm">Profil</span>
             </Link>
             <Link
-              to="/profile/user"
+              to="/messages/user"
               className="flex items-center gap-2 text-white hover:text-blue-200 transition-colors"
             >
               <Mail size={18} />

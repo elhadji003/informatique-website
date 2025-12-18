@@ -72,13 +72,16 @@ export default function Login() {
                 type="password"
                 {...register("password", { required: true })}
                 placeholder="Password"
-                className="w-full px-4 py-3 border rounded-full outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-3 border rounded-full outline-none focus:ring-2 focus:ring-blue-400 mb-2"
               />
             </div>
 
-            <p className="mt-4 text-sm text-gray-500 cursor-pointer hover:underline">
+            <Link
+              to={"/forgot/pwd"}
+              className="mt-4 px-2 text-sm text-gray-500 cursor-pointer hover:underline"
+            >
               Forgot Password?
-            </p>
+            </Link>
 
             {/* Bouton Login */}
             <button
