@@ -50,7 +50,7 @@ export default function InformationUser({ className = "" }) {
           <p>
             Téléphone :{" "}
             <span className="font-semibold">
-              {user?.phone || "Non défini"}
+              {user?.phone_number || "Non défini"}
             </span>
           </p>
           <p>
@@ -62,7 +62,7 @@ export default function InformationUser({ className = "" }) {
           <p>
             Ville :{" "}
             <span className="font-semibold">
-              {user?.city || "Non définie"}
+              {user?.ville || "Non définie"}
             </span>
           </p>
         </div>

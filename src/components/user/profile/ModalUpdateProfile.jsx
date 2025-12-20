@@ -1,5 +1,5 @@
-import { User2, X, Camera } from "lucide-react";
 import React, { useState } from "react";
+import { User2, X, Camera } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useUpdateUserProfileMutation } from "../../../backend/features/user/userApi";
 import { toast } from "react-toastify";
@@ -21,6 +21,10 @@ export default function ModalUpdateProfile({ user, isOpen, onClose }) {
       first_name: user?.first_name || "",
       last_name: user?.last_name || "",
       email: user?.email || "",
+      phone_number: user?.phone_number || "",
+      adderess: user?.address || "",
+      ville: user?.ville || "",
+      level: user?.level || "",
     },
   });
 
@@ -37,6 +41,10 @@ export default function ModalUpdateProfile({ user, isOpen, onClose }) {
       const formData = new FormData();
       formData.append("first_name", data.first_name);
       formData.append("last_name", data.last_name);
+      formData.append("phone_number", data.phone_number);
+      formData.append("ville", data.ville);
+      formData.append("level", data.level);
+      formData.append("address", data.address);
 
       if (data.avatar) {
         formData.append("avatar", data.avatar);
@@ -110,6 +118,56 @@ export default function ModalUpdateProfile({ user, isOpen, onClose }) {
               <p className="text-sm text-red-500">
                 {errors.first_name.message}
               </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Téléphone</label>
+            <input
+              {...register("phone_number", { required: "Téléphone requis" })}
+              className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.phone_number && (
+              <p className="text-sm text-red-500">
+                {errors.phone_number.message}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Ville</label>
+            <input
+              {...register("ville", { required: "Ville requise" })}
+              className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.ville && (
+              <p className="text-sm text-red-500">{errors.ville.message}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Niveau</label>
+            <select
+              {...register("level", { required: "Niveau requis" })}
+              className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Sélectionnez un niveau</option>
+              <option value="beginner">Débutant</option>
+              <option value="intermédiaire">Avancé</option>
+            </select>
+            {errors.level && (
+              <p className="text-sm text-red-500">{errors.level.message}</p>
+            )}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Adresse</label>
+            <input
+              {...register("address", { required: "Adresse requise" })}
+              className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.address && (
+              <p className="text-sm text-red-500">{errors.address.message}</p>
             )}
           </div>
 
