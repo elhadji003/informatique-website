@@ -61,10 +61,25 @@ export const coursApi = createApi({
       invalidatesTags: ["Etapes", "Cours"],
     }),
 
+    // 🔹 Listes des cours
+    getListeCours: builder.query({
+      query: () => `${BUREAUTIQUE_API}liste-cours/`,
+      providesTags: ['Cours']
+    }),
+
     // 🔹 Commencer un étape
     startCours: builder.mutation({
       query: (coursId) => ({
         url: `${BUREAUTIQUE_API}cours/${coursId}/start/`,
+        method: "POST",
+      }),
+      invalidatesTags: ["Progression"],
+    }),
+
+      // 🔹 Commencer un étape
+    finishCours: builder.mutation({
+      query: (coursId) => ({
+        url: `${BUREAUTIQUE_API}cours/${coursId}/finish/`,
         method: "POST",
       }),
       invalidatesTags: ["Progression"],
@@ -91,6 +106,8 @@ export const {
   useCreateEtapeMutation,
   useUpdateEtapeMutation,
   useDeleteEtapeMutation,
+  useGetListeCoursQuery,
   useStartCoursMutation,
+  useFinishCoursMutation,
   useLikeCoursMutation,
 } = coursApi;

@@ -1,6 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "../../baseQuery";
-import { USERS_API } from "../../enpoints";
+import { BUREAUTIQUE_API, USERS_API } from "../../enpoints";
 
 export const userApi = createApi({
   reducerPath: "userApi",
@@ -13,6 +13,9 @@ export const userApi = createApi({
         method: "GET",
       }),
         providesTags: ["UserProfile"],
+    }),
+    getDashboard: builder.query({
+      query: () => `${BUREAUTIQUE_API}me/dashboard/`,
     }),
     getProfileUserById: builder.query({
       query: (id) => ({
@@ -41,6 +44,7 @@ export const userApi = createApi({
 
 export const { 
   useGetUserProfileQuery, 
+  useGetDashboardQuery,
   useGetProfileUserByIdQuery, 
   useUpdateUserProfileMutation, 
   useDeleteUserAccountMutation 

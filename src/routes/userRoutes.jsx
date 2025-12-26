@@ -1,4 +1,4 @@
-import Ordinateur from "../components/bureautique/Ordinateur";
+import BureautiqueRouter from "../components/bureautique/BureautiqueRouter";
 import Cours from "../pages/users/cours/Cours";
 import DashboardUser from "../pages/users/DashboardUser";
 import Messages from "../pages/users/Messages";
@@ -11,5 +11,5 @@ export const userRoutes = [
   { path: "progression/user/", element: <Progression /> },
   { path: "cours/user/", element: <Cours /> },
   { path: "messages/user/", element: <Messages /> },
-  { path: "cours/bureautique/ordinateur", element: <Ordinateur /> },
+  { path: "cours/bureautique/:id", element: <BureautiqueRouter /> },
 ];

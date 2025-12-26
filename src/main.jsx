@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import { persistor, store } from "./backend/app/store.js";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 AOS.init();
 
 createRoot(document.getElementById("root")).render(
@@ -19,6 +20,7 @@ createRoot(document.getElementById("root")).render(
       <StrictMode>
         <App />
         <ToastContainer />
+        <Toaster position="bottom-left" reverseOrder={false} />
       </StrictMode>
     </PersistGate>
   </Provider>

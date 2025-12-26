@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useGetUserProfileQuery,
   useUpdateUserProfileMutation,
@@ -6,15 +6,25 @@ import {
 import Modules from "../../../components/bureautique/Modules";
 
 export default function Bureautique() {
-  const { data: user } = useGetUserProfileQuery();
-  const [level, setLevel] = useState(user?.level || "");
+  const { data: user, refetch } = useGetUserProfileQuery();
+  const [level, setLevel] = useState();
+
+  useEffect(() => {
+    if (user?.level) {
+      setLevel(user.level);
+    }
+  }, [user]);
 
   const [updateLevelUser, { isLoading, isSuccess, isError }] =
     useUpdateUserProfileMutation();
 
   const handleSelectLevel = async (selectedLevel) => {
-    setLevel(selectedLevel);
-    await updateLevelUser({ level_bureautique: selectedLevel });
+    try {
+      setLevel(selectedLevel); // UI immédiate ⚡
+      await updateLevelUser({ level: selectedLevel }).unwrap();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

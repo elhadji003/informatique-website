@@ -1,7 +1,7 @@
 import React from "react";
 import { X, Laptop, Heart } from "lucide-react";
-import ordi from "../../assets/img/odinateur.png";
-import AccordionUsage from "../AccordionUsage";
+import ordi from "../../../assets/img/odinateur.png";
+import AccordionUsage from "../../AccordionUsage";
 
 export default function OrdiPortable({ onOpen, onClose }) {
   if (!onOpen) return null;
@@ -136,7 +136,6 @@ export default function OrdiPortable({ onOpen, onClose }) {
 
         {/* Footer */}
         <div className="flex justify-end mt-8">
-        
           <div>
             <button
               onClick={onClose}

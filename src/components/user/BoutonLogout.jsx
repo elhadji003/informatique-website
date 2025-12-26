@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../backend/features/auth/authSlice";
 import { FiLogOut } from "react-icons/fi";
+import { resetApp } from "../../backend/resetActions";
 
 export default function BoutonLogout() {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ export default function BoutonLogout() {
 
     dispatch(logout());
     navigate("/login");
+    resetApp();
   };
 
   return (

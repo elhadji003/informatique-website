@@ -22,7 +22,7 @@ export default function ModalUpdateProfile({ user, isOpen, onClose }) {
       last_name: user?.last_name || "",
       email: user?.email || "",
       phone_number: user?.phone_number || "",
-      adderess: user?.address || "",
+      address: user?.address || "",
       ville: user?.ville || "",
       level: user?.level || "",
     },
@@ -61,7 +61,7 @@ export default function ModalUpdateProfile({ user, isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-6 relative animate__animated animate__zoomIn">
+      <div className="bg-white rounded-xl shadow-lg w-full max-w-2xl p-6 relative animate__animated animate__zoomIn">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-bold flex items-center gap-2">
@@ -97,52 +97,58 @@ export default function ModalUpdateProfile({ user, isOpen, onClose }) {
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium">Nom</label>
-            <input
-              {...register("last_name", { required: "Nom requis" })}
-              className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.last_name && (
-              <p className="text-sm text-red-500">{errors.last_name.message}</p>
-            )}
+          <div className="flex gap-5 max-sm:flex-col">
+            <div className="w-full">
+              <label className="block text-sm font-medium">Nom</label>
+              <input
+                {...register("last_name", { required: "Nom requis" })}
+                className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.last_name && (
+                <p className="text-sm text-red-500">
+                  {errors.last_name.message}
+                </p>
+              )}
+            </div>
+
+            <div className="w-full">
+              <label className="block text-sm font-medium">Prénom</label>
+              <input
+                {...register("first_name", { required: "Prénom requis" })}
+                className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.first_name && (
+                <p className="text-sm text-red-500">
+                  {errors.first_name.message}
+                </p>
+              )}
+            </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium">Prénom</label>
-            <input
-              {...register("first_name", { required: "Prénom requis" })}
-              className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.first_name && (
-              <p className="text-sm text-red-500">
-                {errors.first_name.message}
-              </p>
-            )}
-          </div>
+          <div className="flex gap-5 max-sm:flex-col">
+            <div className="w-full">
+              <label className="block text-sm font-medium">Téléphone</label>
+              <input
+                {...register("phone_number", { required: "Téléphone requis" })}
+                className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.phone_number && (
+                <p className="text-sm text-red-500">
+                  {errors.phone_number.message}
+                </p>
+              )}
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium">Téléphone</label>
-            <input
-              {...register("phone_number", { required: "Téléphone requis" })}
-              className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.phone_number && (
-              <p className="text-sm text-red-500">
-                {errors.phone_number.message}
-              </p>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium">Ville</label>
-            <input
-              {...register("ville", { required: "Ville requise" })}
-              className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.ville && (
-              <p className="text-sm text-red-500">{errors.ville.message}</p>
-            )}
+            <div className="w-full">
+              <label className="block text-sm font-medium">Ville</label>
+              <input
+                {...register("ville", { required: "Ville requise" })}
+                className="mt-1 w-full border rounded-md p-2 focus:ring-2 focus:ring-blue-500"
+              />
+              {errors.ville && (
+                <p className="text-sm text-red-500">{errors.ville.message}</p>
+              )}
+            </div>
           </div>
 
           <div>

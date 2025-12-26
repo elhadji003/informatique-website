@@ -1,87 +1,60 @@
-import { Check } from "lucide-react";
-import React, { useState } from "react";
+import { Check, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const initialModules = [
-  {
-    id: 1,
-    title: "Découvrir l’ordinateur",
-    completed: false,
-    href: "/cours/bureautique/ordinateur",
-  },
-  {
-    id: 2,
-    title: "Utiliser le clavier et la souris",
-    completed: false,
-    href: "/cours/bureautique/clavier-souris",
-  },
-  {
-    id: 3,
-    title: "Créer un document Word",
-    completed: false,
-    href: "/cours/bureautique/word",
-  },
-  {
-    id: 4,
-    title: "Notions de base Excel",
-    completed: false,
-    href: "/cours/bureautique/excel",
-  },
-  {
-    id: 5,
-    title: "Notions de base PowerPoint",
-    completed: false,
-    href: "/cours/bureautique/powerpoint",
-  },
-];
+import { useGetListeCoursQuery } from "../../backend/features/bureautique/coursApi";
 
 export default function Modules() {
-  const [modules, setModules] = useState(initialModules);
+  const { data, isLoading } = useGetListeCoursQuery();
 
-  const toggleModule = (id, e) => {
-    e.stopPropagation(); // empêche la navigation
-    e.preventDefault();
+  if (isLoading) return <div>Chargement...</div>;
 
-    setModules((prev) =>
-      prev.map((module) =>
-        module.id === id
-          ? { ...module, completed: !module.completed }
-          : module
-      )
-    );
-  };
+  const modules = data?.results || [];
 
   return (
     <div className="bg-blue-50 border border-blue-200 rounded-lg p-5">
-      <h2 className="font-semibold text-blue-800 mb-4">
-        🎓 Parcours Débutant
-      </h2>
+      <h2 className="font-semibold text-blue-800 mb-4">🎓 Parcours Débutant</h2>
 
       <ul className="space-y-2 text-sm">
-        {modules.map((module) => (
-          <li
-            key={module.id}
-            className="bg-white rounded-md shadow-sm hover:shadow-md transition"
-          >
-            <Link
-              to={module.href}
-              className="flex items-center justify-between p-3"
-            >
-              <span>{module.title}</span>
+        {modules.map((module, index) => {
+          const prevModule = modules[index - 1];
 
-              <button
-                onClick={(e) => toggleModule(module.id, e)}
-                className="ml-4"
-              >
-                {module.completed ? (
-                  <Check className="text-green-600" />
-                ) : (
-                  <span className="text-gray-400">⏳</span>
-                )}
-              </button>
-            </Link>
-          </li>
-        ))}
+          const isLocked = index > 0 && !prevModule?.progress_user?.is_finished;
+
+          const isCompleted = module.progress_user?.is_finished;
+          const isStarted = module.progress_user?.is_started;
+
+          return (
+            <li
+              key={module.id}
+              className={`rounded-md shadow-sm transition ${
+                isLocked
+                  ? "bg-gray-100 opacity-60 cursor-not-allowed"
+                  : "bg-white hover:shadow-md"
+              }`}
+            >
+              {isLocked ? (
+                <div className="flex items-center justify-between p-3">
+                  <span>{module.titre}</span>
+                  <Lock className="text-gray-400" size={16} />
+                </div>
+              ) : (
+                <Link
+                  to={`/cours/bureautique/${module.id}`}
+                  className="flex items-center justify-between p-3"
+                >
+                  <span>{module.titre}</span>
+
+                  {isCompleted ? (
+                    <Check className="text-green-600" />
+                  ) : isStarted ? (
+                    <span className="text-blue-500">▶️</span>
+                  ) : (
+                    <span className="text-gray-400">⏳</span>
+                  )}
+                </Link>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
