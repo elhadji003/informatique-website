@@ -133,7 +133,7 @@ export default function Register() {
               <div className="w-full">
                 <input
                   type={showPwd ? "text" : "password"}
-                  {...register("password", {
+                  {...register("password2", {
                     required: "Password2 is required",
                   })}
                   placeholder="Confirm Password"

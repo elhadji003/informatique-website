@@ -6,6 +6,7 @@ import authReducer from "../features/auth/authSlice";
 import { authApi } from "../features/auth/authApi";
 import { userApi } from "../features/user/userApi";
 import { coursApi } from "../features/bureautique/coursApi";
+import { paymentApi } from "../features/payment/paymentApi";
 
 const persistConfig = {
   key: "root",
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
   [coursApi.reducerPath]: coursApi.reducer,
+  [paymentApi.reducerPath]: paymentApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -33,6 +35,7 @@ export const store = configureStore({
       authApi.middleware, 
       userApi.middleware, 
       coursApi.middleware,
+      paymentApi.middleware
     ),
   devTools: process.env.NODE_ENV !== "production",
 });

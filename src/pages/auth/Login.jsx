@@ -28,7 +28,7 @@ export default function Login() {
 
       const role = res?.user?.role;
 
-      console.log("ROLE 👉", res.user.role);
+      // console.log("ROLE 👉", res.user.role);
 
       if (role === "admin") navigate("/dashboardAdmin");
       else if (role === "user") navigate("/dashboardUser");

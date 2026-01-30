@@ -1,4 +1,5 @@
 import BureautiqueRouter from "../components/bureautique/BureautiqueRouter";
+import PaymentSuccess from "../pages/PaymentSuccess";
 import Cours from "../pages/users/cours/Cours";
 import DashboardUser from "../pages/users/DashboardUser";
 import Messages from "../pages/users/Messages";
@@ -12,4 +13,5 @@ export const userRoutes = [
   { path: "cours/user/", element: <Cours /> },
   { path: "messages/user/", element: <Messages /> },
   { path: "cours/bureautique/:id", element: <BureautiqueRouter /> },
+  { path: "payment-success", element: <PaymentSuccess /> },
 ];
